@@ -11,5 +11,6 @@
 |
 */
 
-Route::get('/','IndexController@index');
-Route::get('/help','IndexController@help');
+Route::get('/','IndexController@index')->name('index');
+Route::get('/help','IndexController@help')->name('help');
+Route::get('signup', 'UsersController@create')->name('signup');
