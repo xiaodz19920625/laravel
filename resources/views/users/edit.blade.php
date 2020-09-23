@@ -8,7 +8,10 @@
 		</div>
 		<div class="card-body">
 			@include('shared._errors')
-			<form method="POST" action="{{ route('users.update',$user->id) }}" >
+			<div class="avatar_edit">
+				<img src="{{$user->avatar}}" alt="{{$user->name}}" class="avatar" width="150">
+			</div>
+			<form method="POST" action="{{ route('users.update',$user->id) }}" enctype="multipart/form-data" >
 				{{ method_field('PATCH') }}
 				{{ csrf_field() }}
 				<div class="form-group">
@@ -26,6 +29,13 @@
 				<div class="form-group">
 					<label for="password">确认密码：</label>
 					<input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
+				</div>
+				<div class="form-group">
+					<label for="avatar" class="avatar-label">用户头像：</label>
+					<input type="file" class="form-control-file" name="avatar"></input>
+					@if ($user->avatar)
+						<img src="{{ $user->avatar }}" class="thumbnail img-responsive" width="100"></img>
+					@endif
 				</div>
 				<button type="submit" class="btn btn-primary">更新</button>
 			</form>
