@@ -8,6 +8,20 @@ use Auth;
 use App\Handlers\ImageUploadHandler;
 class UsersController extends Controller
 {
+    public function __construct(){
+      $this->middleware('auth', [
+        'except' => ['show','create', 'store', 'index']
+      ]);
+      $this->middleware('guest', [
+        'only' => ['create']
+      ]);
+    }
+    //用户列表
+    public function index(){
+      $users = User::all();
+      return view('users.index', compact('users'));
+    }
+
     public function create(){
 
     	return view('users.create');
@@ -34,11 +48,15 @@ class UsersController extends Controller
     }
 
     public function edit(User $user){
-        return view('users.edit', compact('user'));
+      //验证用户授权策略
+      $this->authorize('update', $user);
+      return view('users.edit', compact('user'));
     }
     public function update(User $user, Request $request, ImageUploadHandler $uploader){
 
-       $this->validate($request,[
+      //验证用户授权策略
+      $this->authorize('update', $user);
+      $this->validate($request,[
             'name'     =>'required|max:50',
             'password' =>'nullable|confirmed|min:6',
         ]);
