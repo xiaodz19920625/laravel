@@ -10954,3 +10954,37 @@ section.user_info .avatar {
   max-width: 100px;
 }
 
+.pagination li a {
+  white-space: nowrap;
+  padding: 3px 10px;
+  text-align: center;
+  border: 1px solid #4fa2e4;
+  border-radius: 5px;
+  display: block;
+  margin: 0 5px;
+}
+
+.pagination .disabled span {
+  white-space: nowrap;
+  padding: 3px 10px;
+  text-align: center;
+  border: 1px solid #4fa2e4;
+  border-radius: 5px;
+  display: block;
+  margin: 0 5px;
+  background: #4fa2e4;
+  color: #fff;
+}
+
+.pagination .active span {
+  white-space: nowrap;
+  padding: 3px 10px;
+  text-align: center;
+  border: 1px solid #4fa2e4;
+  border-radius: 5px;
+  display: block;
+  margin: 0 5px;
+  background: #4fa2e4;
+  color: #fff;
+}
+

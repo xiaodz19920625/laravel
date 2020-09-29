@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use App\Handlers\ImageUploadHandler;
+use Mail;
 class UsersController extends Controller
 {
     public function __construct(){
       $this->middleware('auth', [
-        'except' => ['show','create', 'store', 'index']
+        'except' => ['show','create', 'store', 'index','confirmEmail']
       ]);
       $this->middleware('guest', [
         'only' => ['create']
@@ -18,7 +19,7 @@ class UsersController extends Controller
     }
     //用户列表
     public function index(){
-      $users = User::all();
+      $users = User::paginate(10);
       return view('users.index', compact('users'));
     }
 
@@ -41,10 +42,32 @@ class UsersController extends Controller
     		'name' => $request->name,
     		'email' => $request->email,
     		'password' => bcrypt($request->password),
+        'activation_token' => str_random(30),
     	]);
-        Auth::login($user);
-        session()->flash('success', '注册成功！');
+      //发送激活邮件
+      $this->sendEmailConfirmation($user);
+      // Auth::login($user);
+      session()->flash('success', '已发送验证邮件，请注意查收激活！');
     	return redirect()->route('users.show', [$user]);
+    }
+
+    protected function sendEmailConfirmation($user){
+      $view = 'emails.confirm';
+      $data = compact('user');
+      $to = $user->email;
+      $subject = '感谢您注册美莱微博，请尽快激活！';
+      Mail::send($view, $data,function($message) use ($to, $subject){
+        $message->to($to)->subject($subject);
+      });
+    }
+    public function confirmEmail($token){
+      $user = User::where('activation_token',$token)->firstOrFail();
+      $user->activation_token = null;
+      $user->activated = true;
+      $user->save();
+      Auth::login($user);
+      session()->flash('success', '激活成功！');
+      return redirect()->route('users.show', [$user]);
     }
 
     public function edit(User $user){
@@ -75,5 +98,12 @@ class UsersController extends Controller
        $user->update($data);
        session()->flash('success', '更新成功！');
        return redirect()->route('users.show', [$user]);
+    }
+
+    public function destroy(User $user){
+      $this->authorize('destroy', $user);
+      $user->delete();
+      session()->flash('success', '用户删除成功！');
+      return back();
     }
 }

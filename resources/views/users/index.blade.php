@@ -9,8 +9,18 @@
 					<div class="list-group-item">
 						<img src="{{$user->avatar}}" width="100" alt="{{$user->name}}" class="mr-3">
 						<a href="{{ route('users.show', $user) }}">{{$user->name}}</a>
+						@can('destroy', $user)
+							<form method="post" action="{{ route('users.destroy', $user->id) }}" class="float-right">
+								{{ method_field('DELETE') }}
+								{{ csrf_field() }}
+								<button type="submit" class="btn btn-sm btn-danger delete-on">删除</button>
+							</form>
+						@endcan
 					</div>
 				@endforeach
+			</div>
+			<div class="mt-3">
+				{!! $users->links() !!}
 			</div>
 		</div>
 	</div>

@@ -48,3 +48,38 @@ section.user_info{
 		max-width:100px;
 	}
 }
+
+.pagination {
+
+	li a {
+		white-space:nowrap;
+		padding:3px 10px;
+	    text-align: center;
+	    border: 1px solid #4fa2e4;
+	    border-radius: 5px;
+	    display: block;
+	    margin: 0 5px;
+	}
+	.disabled span {
+		white-space:nowrap;
+		padding:3px 10px;
+	    text-align: center;
+	    border: 1px solid #4fa2e4;
+	    border-radius: 5px;
+	    display: block;
+	    margin: 0 5px;
+		background: #4fa2e4;
+		color:#fff;
+	}
+	.active span {
+		white-space:nowrap;
+		padding:3px 10px;
+	    text-align: center;
+	    border: 1px solid #4fa2e4;
+	    border-radius: 5px;
+	    display: block;
+	    margin: 0 5px;
+		background: #4fa2e4;
+		color:#fff;
+	}
+} 
