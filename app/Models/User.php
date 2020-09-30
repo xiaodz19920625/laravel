@@ -26,4 +26,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    //一对多关联
+    public function statuses(){
+
+        return $this->hasMany(Status::class);
+    }
+
 }
