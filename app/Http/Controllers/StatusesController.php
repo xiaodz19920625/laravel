@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use APP\Models\Status;
+use App\Models\Status;
 
 class StatusesController extends Controller
 {
@@ -21,6 +21,14 @@ class StatusesController extends Controller
     	]);
     	session()->flash('success', '发布成功');
     	return redirect()->back();
+    }
+
+    public function destroy(Status $status)
+    {
+        $this->authorize('destroy', $status);
+        $status->delete();
+        session()->flash('success', '微博删除成功！');
+        return back();
     }
 
 }

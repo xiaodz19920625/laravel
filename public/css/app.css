@@ -10961,7 +10961,7 @@ section.user_info .avatar {
   border: 1px solid #4fa2e4;
   border-radius: 5px;
   display: block;
-  margin: 0 5px;
+  margin: 0 1px;
 }
 
 .pagination .disabled span {
@@ -10983,8 +10983,38 @@ section.user_info .avatar {
   border: 1px solid #4fa2e4;
   border-radius: 5px;
   display: block;
-  margin: 0 5px;
+  margin: 0 1px;
   background: #4fa2e4;
   color: #fff;
+}
+
+.stats {
+  overflow: hidden;
+  margin-top: 0;
+  padding: 0;
+}
+
+.stats a {
+  float: left;
+  padding: 0 10px;
+  text-align: center;
+  width: 33%;
+  border-left: 1px solid #eee;
+  color: #333;
+}
+
+.stats a:hover {
+  text-decoration: none;
+  color: #999;
+}
+
+.stats a:first-child {
+  border: none;
+}
+
+.stats strong {
+  display: block;
+  font-size: 1.2em;
+  color: block;
 }
 
